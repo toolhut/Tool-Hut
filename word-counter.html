@@ -1,82 +1,87 @@
   
-
+  
   <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Word and Character Counter</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Word Counter Tool</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f0f8ff;
-      padding: 20px;
+      background: #eef8ff;
+      margin: 0;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
     }
 
     h2 {
       color: #007bff;
+      margin-bottom: 20px;
     }
 
-    #textBox {
-      width: 90%;
-      max-width: 500px;
-      min-height: 120px;
+    .inputBox {
+      width: 100%;
+      height: 150px;
       padding: 10px;
       font-size: 16px;
       border-radius: 8px;
       border: 1px solid #ccc;
-      background: #fff;
-      margin-bottom: 15px;
-      outline: none;
-      overflow-y: auto;
+      resize: none;
     }
 
-    button {
-      margin: 5px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      background: #007bff;
-      color: #fff;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #0056b3;
-    }
-
-    #output {
-      margin-top: 15px;
+    .results {
+      margin-top: 20px;
       font-size: 18px;
+      color: #333;
+    }
+
+    .results span {
+      display: inline-block;
+      margin: 0 10px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h2>Word Counter Tool</h2>
+    <div contenteditable="true" class="inputBox" id="textBox" placeholder="Type or paste your text here..."></div>
 
-  <h2>Word and Character Counter</h2>
-
-  <div id="textBox" contenteditable="true" placeholder="Enter your text here..."></div>
-
-  <button onclick="countText()">Count Words & Characters</button>
-
-  <div id="output">
-    <p><strong>Word Count:</strong> <span id="wordCount">0</span></p>
-    <p><strong>Character Count:</strong> <span id="charCount">0</span></p>
+    <div class="results">
+      <span>Words: <span id="wordCount">0</span></span>
+      <span>Characters: <span id="charCount">0</span></span>
+    </div>
   </div>
 
   <script>
-    function countText() {
-      var text = document.getElementById("textBox").innerText.trim();
-      var words = text.split(/\s+/).filter(Boolean);
-      var characters = text.length;
+    const textBox = document.getElementById("textBox");
+    const wordCount = document.getElementById("wordCount");
+    const charCount = document.getElementById("charCount");
 
-      document.getElementById("wordCount").textContent = words.length;
-      document.getElementById("charCount").textContent = characters;
+    function updateCounts() {
+      const text = textBox.innerText.trim();
+      const words = text.length > 0 ? text.split(/\s+/).length : 0;
+      const chars = text.replace(/\s/g, "").length;
+
+      wordCount.textContent = words;
+      charCount.textContent = chars;
     }
-  </script>
 
+    textBox.addEventListener("input", updateCounts);
+  </script>
 </body>
 </html>
 
